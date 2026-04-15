@@ -1,7 +1,8 @@
-"""pipewarden — lightweight ETL pipeline health checks with alerting hooks."""
+"""pipewarden — lightweight ETL pipeline health-check library."""
 
 from pipewarden.alerts import AlertHandler, LogAlertHandler
 from pipewarden.checks import CheckResult, CheckStatus, HealthCheck
+from pipewarden.exporter import MetricsExporter
 from pipewarden.history import CheckHistory
 from pipewarden.metrics import CheckMetrics, MetricsCollector
 from pipewarden.pipeline import PipelineReport
@@ -33,4 +34,6 @@ __all__ = [
     "MetricsCollector",
     # reporter
     "PipelineReporter",
+    # exporter
+    "MetricsExporter",
 ]
