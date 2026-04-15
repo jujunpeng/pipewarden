@@ -1,12 +1,14 @@
-"""pipewarden — lightweight ETL pipeline health-check library."""
+"""pipewarden — lightweight ETL pipeline health checks with alerting hooks."""
 
+from pipewarden.alerts import AlertHandler, LogAlertHandler
 from pipewarden.checks import CheckResult, CheckStatus, HealthCheck
-from pipewarden.alerts import AlertHandler, LogAlertHandler, ThresholdAlertHandler
-from pipewarden.pipeline import Pipeline, PipelineReport
+from pipewarden.history import CheckHistory
+from pipewarden.metrics import CheckMetrics, MetricsCollector
+from pipewarden.pipeline import PipelineReport
 from pipewarden.registry import CheckRegistry
+from pipewarden.reporter import PipelineReporter
 from pipewarden.runner import CheckRunner
 from pipewarden.scheduler import CheckScheduler
-from pipewarden.history import CheckHistory
 
 __all__ = [
     # checks
@@ -16,9 +18,7 @@ __all__ = [
     # alerts
     "AlertHandler",
     "LogAlertHandler",
-    "ThresholdAlertHandler",
     # pipeline
-    "Pipeline",
     "PipelineReport",
     # registry
     "CheckRegistry",
@@ -28,6 +28,9 @@ __all__ = [
     "CheckScheduler",
     # history
     "CheckHistory",
+    # metrics
+    "CheckMetrics",
+    "MetricsCollector",
+    # reporter
+    "PipelineReporter",
 ]
-
-__version__ = "0.1.0"
