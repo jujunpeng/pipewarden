@@ -1,72 +1,61 @@
 """pipewarden — lightweight ETL pipeline health-check library."""
 
-from pipewarden.alerts import AlertHandler, LogAlertHandler
-from pipewarden.baseline import BaselineMonitor, BaselineStats, BaselineViolation
 from pipewarden.checks import CheckResult, CheckStatus, HealthCheck
-from pipewarden.comparator import CheckDiff, SnapshotComparator
-from pipewarden.context import CheckContext
-from pipewarden.exporter import MetricsExporter
-from pipewarden.filter import CheckFilter
-from pipewarden.history import CheckHistory
-from pipewarden.metrics import CheckMetrics, MetricsCollector
-from pipewarden.notifier import NotificationRule, PipelineNotifier
+from pipewarden.alerts import AlertHandler, LogAlertHandler
 from pipewarden.pipeline import PipelineReport
 from pipewarden.registry import CheckRegistry
-from pipewarden.reporter import PipelineReporter
-from pipewarden.retry import RetryPolicy
-from pipewarden.runner import CheckRunner
 from pipewarden.scheduler import CheckScheduler
+from pipewarden.runner import CheckRunner
+from pipewarden.history import CheckHistory
+from pipewarden.metrics import CheckMetrics, MetricsCollector
+from pipewarden.reporter import PipelineReporter
+from pipewarden.exporter import MetricsExporter
+from pipewarden.filter import CheckFilter
+from pipewarden.notifier import NotificationRule, PipelineNotifier
+from pipewarden.throttle import ThrottledNotifier
+from pipewarden.retry import RetryPolicy
+from pipewarden.context import CheckContext
+from pipewarden.baseline import BaselineStats, BaselineViolation, BaselineMonitor
 from pipewarden.snapshot import PipelineSnapshot
 from pipewarden.snapshot_builder import SnapshotBuilder
+from pipewarden.comparator import CheckDiff, SnapshotComparator
 from pipewarden.tagging import TagIndex
-from pipewarden.throttle import ThrottledNotifier
+from pipewarden.digest import DigestEntry, PipelineDigest
+from pipewarden.digest_sender import DigestSender
+from pipewarden.watchdog import CheckWatchdog, StalenessViolation
 
 __all__ = [
-    # checks
     "CheckResult",
     "CheckStatus",
     "HealthCheck",
-    # alerts
     "AlertHandler",
     "LogAlertHandler",
-    # baseline
-    "BaselineMonitor",
-    "BaselineStats",
-    "BaselineViolation",
-    # comparator
-    "CheckDiff",
-    "SnapshotComparator",
-    # context
-    "CheckContext",
-    # exporter
-    "MetricsExporter",
-    # filter
-    "CheckFilter",
-    # history
+    "PipelineReport",
+    "CheckRegistry",
+    "CheckScheduler",
+    "CheckRunner",
     "CheckHistory",
-    # metrics
     "CheckMetrics",
     "MetricsCollector",
-    # notifier
+    "PipelineReporter",
+    "MetricsExporter",
+    "CheckFilter",
     "NotificationRule",
     "PipelineNotifier",
-    # pipeline
-    "PipelineReport",
-    # registry
-    "CheckRegistry",
-    # reporter
-    "PipelineReporter",
-    # retry
+    "ThrottledNotifier",
     "RetryPolicy",
-    # runner
-    "CheckRunner",
-    # scheduler
-    "CheckScheduler",
-    # snapshot
+    "CheckContext",
+    "BaselineStats",
+    "BaselineViolation",
+    "BaselineMonitor",
     "PipelineSnapshot",
     "SnapshotBuilder",
-    # tagging
+    "CheckDiff",
+    "SnapshotComparator",
     "TagIndex",
-    # throttle
-    "ThrottledNotifier",
+    "DigestEntry",
+    "PipelineDigest",
+    "DigestSender",
+    "CheckWatchdog",
+    "StalenessViolation",
 ]
