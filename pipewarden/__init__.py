@@ -1,57 +1,49 @@
-"""pipewarden — lightweight ETL pipeline health-check monitoring."""
+"""pipewarden — lightweight ETL pipeline health-check library."""
 
-from pipewarden.checks import CheckResult, CheckStatus, HealthCheck
 from pipewarden.alerts import AlertHandler, LogAlertHandler
-from pipewarden.pipeline import Pipeline, PipelineReport
-from pipewarden.registry import CheckRegistry
-from pipewarden.scheduler import CheckScheduler
-from pipewarden.runner import CheckRunner
-from pipewarden.history import CheckHistory
-from pipewarden.metrics import CheckMetrics, MetricsCollector
-from pipewarden.reporter import PipelineReporter
+from pipewarden.baseline import BaselineMonitor, BaselineStats, BaselineViolation
+from pipewarden.checks import CheckResult, CheckStatus, HealthCheck
+from pipewarden.context import CheckContext
 from pipewarden.exporter import MetricsExporter
 from pipewarden.filter import CheckFilter
+from pipewarden.history import CheckHistory
+from pipewarden.metrics import CheckMetrics, MetricsCollector
 from pipewarden.notifier import NotificationRule, PipelineNotifier
-from pipewarden.throttle import ThrottledNotifier
+from pipewarden.pipeline import PipelineReport
+from pipewarden.registry import CheckRegistry
+from pipewarden.reporter import PipelineReporter
 from pipewarden.retry import RetryPolicy
-from pipewarden.context import CheckContext, make_context
+from pipewarden.runner import CheckRunner
+from pipewarden.scheduler import CheckScheduler
+from pipewarden.snapshot import PipelineSnapshot, SnapshotStore
+from pipewarden.snapshot_builder import SnapshotBuilder
+from pipewarden.throttle import ThrottledNotifier
 
 __all__ = [
-    # checks
+    "AlertHandler",
+    "BaselineMonitor",
+    "BaselineStats",
+    "BaselineViolation",
+    "CheckContext",
+    "CheckFilter",
+    "CheckHistory",
+    "CheckMetrics",
+    "CheckRegistry",
     "CheckResult",
+    "CheckRunner",
+    "CheckScheduler",
     "CheckStatus",
     "HealthCheck",
-    # alerts
-    "AlertHandler",
     "LogAlertHandler",
-    # pipeline
-    "Pipeline",
-    "PipelineReport",
-    # registry
-    "CheckRegistry",
-    # scheduler
-    "CheckScheduler",
-    # runner
-    "CheckRunner",
-    # history
-    "CheckHistory",
-    # metrics
-    "CheckMetrics",
     "MetricsCollector",
-    # reporter
-    "PipelineReporter",
-    # exporter
     "MetricsExporter",
-    # filter
-    "CheckFilter",
-    # notifier
     "NotificationRule",
     "PipelineNotifier",
-    # throttle
-    "ThrottledNotifier",
-    # retry
+    "PipelineReport",
+    "PipelineReporter",
+    "PipelineSnapshot",
     "RetryPolicy",
-    # context
-    "CheckContext",
-    "make_context",
+    "SnapshotBuilder",
+    "SnapshotStore",
+    "ThrottledNotifier",
 ]
