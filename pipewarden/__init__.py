@@ -3,7 +3,7 @@
 from pipewarden.alerts import AlertHandler, LogAlertHandler
 from pipewarden.baseline import BaselineMonitor, BaselineStats, BaselineViolation
 from pipewarden.checks import CheckResult, CheckStatus, HealthCheck
-from pipewarden.comparator import CheckComparator, CheckDiff, SnapshotComparison
+from pipewarden.comparator import CheckDiff, SnapshotComparator
 from pipewarden.context import CheckContext
 from pipewarden.exporter import MetricsExporter
 from pipewarden.filter import CheckFilter
@@ -18,35 +18,55 @@ from pipewarden.runner import CheckRunner
 from pipewarden.scheduler import CheckScheduler
 from pipewarden.snapshot import PipelineSnapshot
 from pipewarden.snapshot_builder import SnapshotBuilder
+from pipewarden.tagging import TagIndex
 from pipewarden.throttle import ThrottledNotifier
 
 __all__ = [
+    # checks
+    "CheckResult",
+    "CheckStatus",
+    "HealthCheck",
+    # alerts
     "AlertHandler",
+    "LogAlertHandler",
+    # baseline
     "BaselineMonitor",
     "BaselineStats",
     "BaselineViolation",
-    "CheckComparator",
-    "CheckContext",
+    # comparator
     "CheckDiff",
-    "CheckFilter",
-    "CheckHistory",
-    "CheckMetrics",
-    "CheckRegistry",
-    "CheckResult",
-    "CheckRunner",
-    "CheckScheduler",
-    "CheckStatus",
-    "HealthCheck",
-    "LogAlertHandler",
-    "MetricsCollector",
+    "SnapshotComparator",
+    # context
+    "CheckContext",
+    # exporter
     "MetricsExporter",
+    # filter
+    "CheckFilter",
+    # history
+    "CheckHistory",
+    # metrics
+    "CheckMetrics",
+    "MetricsCollector",
+    # notifier
     "NotificationRule",
     "PipelineNotifier",
+    # pipeline
     "PipelineReport",
+    # registry
+    "CheckRegistry",
+    # reporter
     "PipelineReporter",
-    "PipelineSnapshot",
+    # retry
     "RetryPolicy",
+    # runner
+    "CheckRunner",
+    # scheduler
+    "CheckScheduler",
+    # snapshot
+    "PipelineSnapshot",
     "SnapshotBuilder",
-    "SnapshotComparison",
+    # tagging
+    "TagIndex",
+    # throttle
     "ThrottledNotifier",
 ]
