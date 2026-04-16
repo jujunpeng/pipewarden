@@ -15,14 +15,15 @@ from pipewarden.notifier import NotificationRule, PipelineNotifier
 from pipewarden.throttle import ThrottledNotifier
 from pipewarden.retry import RetryPolicy
 from pipewarden.context import CheckContext
-from pipewarden.baseline import BaselineStats, BaselineViolation, BaselineMonitor
+from pipewarden.baseline import BaselineStats, BaselineMonitor
 from pipewarden.snapshot import PipelineSnapshot
 from pipewarden.snapshot_builder import SnapshotBuilder
-from pipewarden.comparator import CheckDiff, SnapshotComparator
+from pipewarden.comparator import SnapshotComparator
 from pipewarden.tagging import TagIndex
-from pipewarden.digest import DigestEntry, PipelineDigest
+from pipewarden.digest import PipelineDigest
 from pipewarden.digest_sender import DigestSender
-from pipewarden.watchdog import CheckWatchdog, StalenessViolation
+from pipewarden.watchdog import CheckWatchdog
+from pipewarden.suppression import SuppressionRule, SuppressionRegistry
 
 __all__ = [
     "CheckResult",
@@ -46,16 +47,14 @@ __all__ = [
     "RetryPolicy",
     "CheckContext",
     "BaselineStats",
-    "BaselineViolation",
     "BaselineMonitor",
     "PipelineSnapshot",
     "SnapshotBuilder",
-    "CheckDiff",
     "SnapshotComparator",
     "TagIndex",
-    "DigestEntry",
     "PipelineDigest",
     "DigestSender",
     "CheckWatchdog",
-    "StalenessViolation",
+    "SuppressionRule",
+    "SuppressionRegistry",
 ]
