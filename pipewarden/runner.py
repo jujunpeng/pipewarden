@@ -46,6 +46,9 @@ class CheckRunner:
 
     def _dispatch_alerts(self, result: CheckResult) -> None:
         """Send alerts for non-passing results."""
+        if result.status == CheckStatus.PASS:
+            return
+
         for handler in self._alert_handlers:
             try:
                 handler.send(result)
