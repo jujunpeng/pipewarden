@@ -1,7 +1,5 @@
-"""pipewarden — lightweight ETL pipeline health-check library."""
-
-from pipewarden.checks import CheckResult, CheckStatus, HealthCheck
-from pipewarden.alerts import AlertHandler, LogAlertHandler
+from pipewarden.checks import CheckStatus, CheckResult, HealthCheck
+from pipewarden.alerts import AlertHandler, LogAlertHandler, EmailAlertHandler
 from pipewarden.pipeline import PipelineReport
 from pipewarden.registry import CheckRegistry
 from pipewarden.scheduler import CheckScheduler
@@ -24,30 +22,33 @@ from pipewarden.digest import PipelineDigest
 from pipewarden.digest_sender import DigestSender
 from pipewarden.watchdog import CheckWatchdog
 from pipewarden.suppression import SuppressionRule, SuppressionRegistry
+from pipewarden.cooldown_registry import CooldownRegistry
+from pipewarden.escalation import EscalationPolicy
+from pipewarden.deduplicator import Deduplicator
+from pipewarden.audit import AuditLog
+from pipewarden.audit_hook import AuditHook
+from pipewarden.rate_limiter import RateLimiter
+from pipewarden.aggregator import ResultAggregator
+from pipewarden.trend import TrendWindow, TrendTracker
+from pipewarden.trend_alert import TrendAlert, TrendAlertHandler
 
 __all__ = [
-    "CheckResult",
-    "CheckStatus",
-    "HealthCheck",
-    "AlertHandler",
-    "LogAlertHandler",
+    "CheckStatus", "CheckResult", "HealthCheck",
+    "AlertHandler", "LogAlertHandler", "EmailAlertHandler",
     "PipelineReport",
     "CheckRegistry",
     "CheckScheduler",
     "CheckRunner",
     "CheckHistory",
-    "CheckMetrics",
-    "MetricsCollector",
+    "CheckMetrics", "MetricsCollector",
     "PipelineReporter",
     "MetricsExporter",
     "CheckFilter",
-    "NotificationRule",
-    "PipelineNotifier",
+    "NotificationRule", "PipelineNotifier",
     "ThrottledNotifier",
     "RetryPolicy",
     "CheckContext",
-    "BaselineStats",
-    "BaselineMonitor",
+    "BaselineStats", "BaselineMonitor",
     "PipelineSnapshot",
     "SnapshotBuilder",
     "SnapshotComparator",
@@ -55,6 +56,14 @@ __all__ = [
     "PipelineDigest",
     "DigestSender",
     "CheckWatchdog",
-    "SuppressionRule",
-    "SuppressionRegistry",
+    "SuppressionRule", "SuppressionRegistry",
+    "CooldownRegistry",
+    "EscalationPolicy",
+    "Deduplicator",
+    "AuditLog",
+    "AuditHook",
+    "RateLimiter",
+    "ResultAggregator",
+    "TrendWindow", "TrendTracker",
+    "TrendAlert", "TrendAlertHandler",
 ]
