@@ -1,5 +1,5 @@
 from pipewarden.checks import CheckStatus, CheckResult, HealthCheck
-from pipewarden.alerts import AlertHandler, LogAlertHandler, EmailAlertHandler
+from pipewarden.alerts import AlertHandler, LogAlertHandler, CallbackAlertHandler
 from pipewarden.pipeline import PipelineReport
 from pipewarden.registry import CheckRegistry
 from pipewarden.scheduler import CheckScheduler
@@ -29,12 +29,13 @@ from pipewarden.audit import AuditLog
 from pipewarden.audit_hook import AuditHook
 from pipewarden.rate_limiter import RateLimiter
 from pipewarden.aggregator import ResultAggregator
-from pipewarden.trend import TrendWindow, TrendTracker
-from pipewarden.trend_alert import TrendAlert, TrendAlertHandler
+from pipewarden.trend import TrendWindow
+from pipewarden.trend_alert import TrendAlertHandler
+from pipewarden.checkpoint import Checkpoint, CheckpointStore
 
 __all__ = [
     "CheckStatus", "CheckResult", "HealthCheck",
-    "AlertHandler", "LogAlertHandler", "EmailAlertHandler",
+    "AlertHandler", "LogAlertHandler", "CallbackAlertHandler",
     "PipelineReport",
     "CheckRegistry",
     "CheckScheduler",
@@ -64,6 +65,7 @@ __all__ = [
     "AuditHook",
     "RateLimiter",
     "ResultAggregator",
-    "TrendWindow", "TrendTracker",
-    "TrendAlert", "TrendAlertHandler",
+    "TrendWindow",
+    "TrendAlertHandler",
+    "Checkpoint", "CheckpointStore",
 ]
