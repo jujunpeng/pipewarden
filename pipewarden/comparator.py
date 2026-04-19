@@ -75,6 +75,19 @@ class SnapshotComparison:
     def has_regressions(self) -> bool:
         return bool(self.regressions)
 
+    def summary(self) -> str:
+        """Return a human-readable one-line summary of the comparison."""
+        parts = []
+        if self.regressions:
+            parts.append(f"{len(self.regressions)} regression(s)")
+        if self.recoveries:
+            parts.append(f"{len(self.recoveries)} recovery(s)")
+        if self.new_checks:
+            parts.append(f"{len(self.new_checks)} new check(s)")
+        if self.removed_checks:
+            parts.append(f"{len(self.removed_checks)} removed check(s)")
+        return ", ".join(parts) if parts else "no changes"
+
 
 class CheckComparator:
     """Compare two PipelineSnapshots and produce a SnapshotComparison."""
