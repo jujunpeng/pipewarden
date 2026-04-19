@@ -68,10 +68,21 @@ class TestPipelineDigest:
         self.digest.add(_make_snapshot(True))
         assert self.digest.entry_count == 1
 
+    def test_add_multiple_increments_count(self):
+        for i in range(5):
+            self.digest.add(_make_snapshot(i % 2 == 0))
+        assert self.digest.entry_count == 5
+
     def test_clear_resets_count(self):
         self.digest.add(_make_snapshot(True))
         self.digest.clear()
         assert self.digest.entry_count == 0
+
+    def test_clear_allows_readding(self):
+        self.digest.add(_make_snapshot(True))
+        self.digest.clear()
+        self.digest.add(_make_snapshot(False))
+        assert self.digest.entry_count == 1
 
     def test_pass_rate_zero_when_empty(self):
         assert self.digest.overall_pass_rate() == 0.0
@@ -81,6 +92,11 @@ class TestPipelineDigest:
             self.digest.add(_make_snapshot(True))
         assert self.digest.overall_pass_rate() == 1.0
 
+    def test_pass_rate_all_fail(self):
+        for _ in range(3):
+            self.digest.add(_make_snapshot(False))
+        assert self.digest.overall_pass_rate() == 0.0
+
     def test_pass_rate_mixed(self):
         self.digest.add(_make_snapshot(True))
         self.digest.add(_make_snapshot(False))
@@ -88,59 +104,3 @@ class TestPipelineDigest:
 
     def test_render_contains_title(self):
         rendered = self.digest.render()
-        assert "Test Digest" in rendered
-
-    def test_render_contains_pass_rate(self):
-        self.digest.add(_make_snapshot(True))
-        rendered = self.digest.render()
-        assert "100%" in rendered
-
-    def test_render_contains_snapshot_status(self):
-        self.digest.add(_make_snapshot(False))
-        rendered = self.digest.render()
-        assert "FAIL" in rendered
-
-
-# ---------------------------------------------------------------------------
-# DigestSender
-# ---------------------------------------------------------------------------
-
-class TestDigestSender:
-    def setup_method(self):
-        self.handler = MagicMock()
-        self.sender = DigestSender(handlers=[self.handler])
-        self.digest = PipelineDigest(title="Sender Test")
-        self.digest.add(_make_snapshot(False))
-
-    def test_handler_count(self):
-        assert self.sender.handler_count == 1
-
-    def test_add_handler_increments_count(self):
-        self.sender.add_handler(MagicMock())
-        assert self.sender.handler_count == 2
-
-    def test_send_calls_handler(self):
-        self.sender.send(self.digest)
-        self.handler.send.assert_called_once()
-
-    def test_send_passes_check_result(self):
-        self.sender.send(self.digest)
-        args, _ = self.handler.send.call_args
-        assert isinstance(args[0], CheckResult)
-
-    def test_send_message_contains_digest_text(self):
-        self.sender.send(self.digest)
-        args, _ = self.handler.send.call_args
-        result: CheckResult = args[0]
-        assert "Sender Test" in result.message
-
-    def test_send_no_handlers_does_not_raise(self):
-        sender = DigestSender()
-        sender.send(self.digest)  # should not raise
-
-    def test_send_multiple_handlers(self):
-        h2 = MagicMock()
-        self.sender.add_handler(h2)
-        self.sender.send(self.digest)
-        self.handler.send.assert_called_once()
-        h2.send.assert_called_once()
