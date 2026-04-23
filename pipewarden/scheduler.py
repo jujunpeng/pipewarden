@@ -24,6 +24,7 @@ class CheckScheduler:
         self._thread: Optional[threading.Thread] = None
         self._stop_event = threading.Event()
         self._run_count = 0
+        self._last_run_time: Optional[float] = None
 
     @property
     def is_running(self) -> bool:
@@ -34,6 +35,11 @@ class CheckScheduler:
     def run_count(self) -> int:
         """Total number of times the task has been executed."""
         return self._run_count
+
+    @property
+    def last_run_time(self) -> Optional[float]:
+        """Unix timestamp of the most recent task execution, or None if never run."""
+        return self._last_run_time
 
     def start(self) -> None:
         """Start the scheduler in a daemon background thread."""
@@ -56,6 +62,7 @@ class CheckScheduler:
             try:
                 self._task()
                 self._run_count += 1
+                self._last_run_time = time.time()
             except Exception:
                 logger.exception("CheckScheduler task raised an unhandled exception.")
             self._stop_event.wait(timeout=self._interval)
