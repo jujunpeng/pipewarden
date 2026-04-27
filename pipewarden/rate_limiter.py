@@ -50,6 +50,13 @@ class RateLimiter:
         """Clear all recorded last-run times."""
         self._last_run.clear()
 
+    def last_run(self, check_name: str) -> Optional[datetime]:
+        """Return the last recorded run time for *check_name*, or None if never run.
+
+        The returned datetime is always timezone-aware (UTC).
+        """
+        return self._last_run.get(check_name)
+
     def __repr__(self) -> str:  # pragma: no cover
         return (
             f"RateLimiter(min_interval_seconds={self.min_interval_seconds}, "
